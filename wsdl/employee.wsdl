@@ -1,44 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
                   xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
                   xmlns:xs="http://www.w3.org/2001/XMLSchema"
                   xmlns:tns="http://www.jcv.com/addEmployee"
                   targetNamespace="http://www.jcv.com/addEmployee">
 
-    <!-- Descripción del servicio -->
+    <!-- Referencia al esquema XSD externo -->
     <wsdl:types>
         <xs:schema targetNamespace="http://www.jcv.com/addEmployee" elementFormDefault="qualified">
-            <!-- Definición del tipo empleado -->
-            <xs:element name="AddEmployeeRequest">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="firstName" type="xs:string"/>
-                        <xs:element name="lastName" type="xs:string"/>
-                        <xs:element name="documentNumber" type="xs:string"/>
-                        <xs:element name="documentType" type="xs:string"/>
-                        <xs:element name="dateBirth" type="xs:date"/>
-                        <xs:element name="dateJoining" type="xs:date"/>
-                        <xs:element name="position" type="xs:string"/>
-                        <xs:element name="salary" type="xs:decimal"/>
-                        <xs:element name="age" type="xs:string"/>
-                        <xs:element name="companyDuration" type="xs:string"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-
-            <!-- Respuesta del servicio -->
-            <xs:element name="AddEmployeeResponse">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="success" type="xs:boolean"/>
-                        <xs:element name="message" type="xs:string"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
+            <xs:import namespace="http://www.jcv.com/addEmployee"
+                       schemaLocation="https://jcvalerovergara.github.io/employee-wsdl/xsd/employee.xsd"/>
         </xs:schema>
     </wsdl:types>
 
-    <!-- Descripción del puerto y el binding -->
+    <!-- Mensajes del servicio -->
     <wsdl:message name="AddEmployeeRequestMessage">
         <wsdl:part name="parameters" element="tns:AddEmployeeRequest"/>
     </wsdl:message>
@@ -47,6 +21,7 @@
         <wsdl:part name="parameters" element="tns:AddEmployeeResponse"/>
     </wsdl:message>
 
+    <!-- Puerto y binding -->
     <wsdl:portType name="AddEmployeePortType">
         <wsdl:operation name="AddEmployee">
             <wsdl:input message="tns:AddEmployeeRequestMessage"/>
@@ -67,7 +42,7 @@
         </wsdl:operation>
     </wsdl:binding>
 
-    <!-- Descripción del servicio -->
+    <!-- Servicio -->
     <wsdl:service name="AddEmployeeService">
         <wsdl:port name="AddEmployeePort" binding="tns:AddEmployeeBinding">
             <soap:address location="http://localhost:8080/ws/addEmployee"/>
