@@ -20,8 +20,8 @@
                         <xs:element name="dateJoining" type="xs:date"/>
                         <xs:element name="position" type="xs:string"/>
                         <xs:element name="salary" type="xs:decimal"/>
-                        <xs:element name="age" type="xs:string"/>
-                        <xs:element name="companyDuration" type="xs:string"/>
+                        <!-- <xs:element name="age" type="xs:string"/>
+                        <xs:element name="companyDuration" type="xs:string"/> -->
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
