@@ -8,48 +8,58 @@
     <types>
         <xsd:schema targetNamespace="http://jcvalerovergara.github.io/employee.wsdl" elementFormDefault="qualified">
             <!-- Definición del tipo empleado -->
-            <xsd:element name="getEmployeeRequest">
-                <xsd:complexType>
-                    <xsd:sequence>
-                        <xsd:element name="employeeId" type="xsd:int"/>
-                    </xsd:sequence>
-                </xsd:complexType>
-            </xsd:element>
+            <!-- Definición del tipo empleado -->
+            <xs:element name="AddEmployeeRequest">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="firstName" type="xs:string"/>
+                        <xs:element name="lastName" type="xs:string"/>
+                        <xs:element name="documentNumber" type="xs:string"/>
+                        <xs:element name="documentType" type="xs:string"/>
+                        <xs:element name="dateBirth" type="xs:date"/>
+                        <xs:element name="dateJoining" type="xs:date"/>
+                        <xs:element name="position" type="xs:string"/>
+                        <xs:element name="salary" type="xs:decimal"/>
+                        <xs:element name="age" type="xs:string"/>
+                        <xs:element name="companyDuration" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
 
-            <xsd:element name="getEmployeeResponse">
-                <xsd:complexType>
-                    <xsd:sequence>
-                        <xsd:element name="firstName" type="xsd:string"/>
-                        <xsd:element name="lastName" type="xsd:string"/>
-                        <xsd:element name="position" type="xsd:string"/>
-                    </xsd:sequence>
-                </xsd:complexType>
-            </xsd:element>
+            <!-- Respuesta del servicio -->
+            <xs:element name="AddEmployeeResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="success" type="xs:boolean"/>
+                        <xs:element name="message" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
         </xsd:schema>
     </types>
 
     <!-- Mensajes SOAP -->
-    <message name="getEmployeeRequest">
-        <part name="parameters" element="tns:getEmployeeRequest"/>
+    <message name="AddEmployeeRequestMessage">
+        <part name="parameters" element="tns:AddEmployeeRequest"/>
     </message>
 
-    <message name="getEmployeeResponse">
-        <part name="parameters" element="tns:getEmployeeResponse"/>
+    <message name="AddEmployeeResponseMessage">
+        <part name="parameters" element="tns:AddEmployeeResponse"/>
     </message>
 
     <!-- PortType -->
     <portType name="EmployeePortType">
-        <operation name="getEmployee">
-            <input message="tns:getEmployeeRequest"/>
-            <output message="tns:getEmployeeResponse"/>
+        <operation name="addEmployee">
+            <input message="tns:AddEmployeeRequestMessage"/>
+            <output message="tns:AddEmployeeResponseMessage"/>
         </operation>
     </portType>
 
     <!-- Binding -->
     <binding name="EmployeeBinding" type="tns:EmployeePortType">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-        <operation name="getEmployee">
-            <soap:operation soapAction="http://jcvalerovergara.github.io/employee.wsdl/getEmployee"/>
+        <operation name="addEmployee">
+            <soap:operation soapAction="http://jcvalerovergara.github.io/employee.wsdl/addEmployee" style="document"/>
             <input>
                 <soap:body use="literal"/>
             </input>
@@ -60,9 +70,9 @@
     </binding>
 
     <!-- Servicio -->
-    <service name="EmployeeService">
-        <port name="EmployeePort" binding="tns:EmployeeBinding">
-            <soap:address location="http://localhost:8080/ws/employees"/>
+    <service name="AddEmployeeService">
+        <port name="EmployeePort" binding="tns:AddEmployeeBinding">
+            <soap:address location="http://localhost:8080/ws/employee"/>
         </port>
     </service>
 </definitions>
