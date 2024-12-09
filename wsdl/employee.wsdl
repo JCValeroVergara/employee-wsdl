@@ -8,33 +8,32 @@
     <types>
         <xsd:schema targetNamespace="http://jcvalerovergara.github.io/employee.wsdl" elementFormDefault="qualified">
             <!-- Definición del tipo empleado -->
-            <!-- Definición del tipo empleado -->
-            <xs:element name="AddEmployeeRequest">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="firstName" type="xs:string"/>
-                        <xs:element name="lastName" type="xs:string"/>
-                        <xs:element name="documentNumber" type="xs:string"/>
-                        <xs:element name="documentType" type="xs:string"/>
-                        <xs:element name="dateBirth" type="xs:date"/>
-                        <xs:element name="dateJoining" type="xs:date"/>
-                        <xs:element name="position" type="xs:string"/>
-                        <xs:element name="salary" type="xs:decimal"/>
-                        <xs:element name="age" type="xs:string"/>
-                        <xs:element name="companyDuration" type="xs:string"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
+            <xsd:element name="AddEmployeeRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="firstName" type="xsd:string"/>
+                        <xsd:element name="lastName" type="xsd:string"/>
+                        <xsd:element name="documentNumber" type="xsd:string"/>
+                        <xsd:element name="documentType" type="xsd:string"/>
+                        <xsd:element name="dateBirth" type="xsd:date"/>
+                        <xsd:element name="dateJoining" type="xsd:date"/>
+                        <xsd:element name="position" type="xsd:string"/>
+                        <xsd:element name="salary" type="xsd:decimal"/>
+                        <xsd:element name="age" type="xsd:string"/>
+                        <xsd:element name="companyDuration" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
 
             <!-- Respuesta del servicio -->
-            <xs:element name="AddEmployeeResponse">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="success" type="xs:boolean"/>
-                        <xs:element name="message" type="xs:string"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
+            <xsd:element name="AddEmployeeResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="success" type="xsd:boolean"/>
+                        <xsd:element name="message" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
         </xsd:schema>
     </types>
 
