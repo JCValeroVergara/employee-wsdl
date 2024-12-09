@@ -1,76 +1,68 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
-                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-                  xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                  xmlns:tns="http://www.jcv.com/addEmployee"
-                  targetNamespace="http://www.jcv.com/addEmployee">
-
-    <!-- Descripción del servicio -->
-    <wsdl:types>
-        <xs:schema targetNamespace="http://www.jcv.com/addEmployee" elementFormDefault="qualified">
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:tns="http://jcvalerovergara.github.io/employee-wsdl"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             targetNamespace="http://jcvalerovergara.github.io/employee-wsdl">
+             
+    <!-- Tipos de datos (XSD incrustado directamente) -->
+    <types>
+        <xsd:schema targetNamespace="http://jcvalerovergara.github.io/employee-wsdl" elementFormDefault="qualified">
             <!-- Definición del tipo empleado -->
-            <xs:element name="AddEmployeeRequest">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="firstName" type="xs:string"/>
-                        <xs:element name="lastName" type="xs:string"/>
-                        <xs:element name="documentNumber" type="xs:string"/>
-                        <xs:element name="documentType" type="xs:string"/>
-                        <xs:element name="dateBirth" type="xs:date"/>
-                        <xs:element name="dateJoining" type="xs:date"/>
-                        <xs:element name="position" type="xs:string"/>
-                        <xs:element name="salary" type="xs:decimal"/>
-                        <!-- <xs:element name="age" type="xs:string"/>
-                        <xs:element name="companyDuration" type="xs:string"/> -->
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
+            <xsd:element name="getEmployeeRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="employeeId" type="xsd:int"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
 
-            <!-- Respuesta del servicio -->
-            <xs:element name="AddEmployeeResponse">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="success" type="xs:boolean"/>
-                        <xs:element name="message" type="xs:string"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-        </xs:schema>
-    </wsdl:types>
+            <xsd:element name="getEmployeeResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="firstName" type="xsd:string"/>
+                        <xsd:element name="lastName" type="xsd:string"/>
+                        <xsd:element name="position" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </types>
 
-    <!-- Descripción del puerto y el binding -->
-    <wsdl:message name="AddEmployeeRequestMessage">
-        <wsdl:part name="parameters" element="tns:AddEmployeeRequest"/>
-    </wsdl:message>
+    <!-- Mensajes SOAP -->
+    <message name="getEmployeeRequest">
+        <part name="parameters" element="tns:getEmployeeRequest"/>
+    </message>
 
-    <wsdl:message name="AddEmployeeResponseMessage">
-        <wsdl:part name="parameters" element="tns:AddEmployeeResponse"/>
-    </wsdl:message>
+    <message name="getEmployeeResponse">
+        <part name="parameters" element="tns:getEmployeeResponse"/>
+    </message>
 
-    <wsdl:portType name="AddEmployeePortType">
-        <wsdl:operation name="AddEmployee">
-            <wsdl:input message="tns:AddEmployeeRequestMessage"/>
-            <wsdl:output message="tns:AddEmployeeResponseMessage"/>
-        </wsdl:operation>
-    </wsdl:portType>
+    <!-- PortType -->
+    <portType name="EmployeePortType">
+        <operation name="getEmployee">
+            <input message="tns:getEmployeeRequest"/>
+            <output message="tns:getEmployeeResponse"/>
+        </operation>
+    </portType>
 
-    <wsdl:binding name="AddEmployeeBinding" type="tns:AddEmployeePortType">
+    <!-- Binding -->
+    <binding name="EmployeeBinding" type="tns:EmployeePortType">
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-        <wsdl:operation name="AddEmployee">
-            <soap:operation soapAction="http://www.jcv.com/addEmployee/AddEmployee"/>
-            <wsdl:input>
+        <operation name="getEmployee">
+            <soap:operation soapAction="http://jcvalerovergara.github.io/employee-wsdl/getEmployee"/>
+            <input>
                 <soap:body use="literal"/>
-            </wsdl:input>
-            <wsdl:output>
+            </input>
+            <output>
                 <soap:body use="literal"/>
-            </wsdl:output>
-        </wsdl:operation>
-    </wsdl:binding>
+            </output>
+        </operation>
+    </binding>
 
-    <!-- Descripción del servicio -->
-    <wsdl:service name="AddEmployeeService">
-        <wsdl:port name="AddEmployeePort" binding="tns:AddEmployeeBinding">
-            <soap:address location="http://localhost:8080/ws/addEmployee"/>
-        </wsdl:port>
-    </wsdl:service>
-</wsdl:definitions>
+    <!-- Servicio -->
+    <service name="EmployeeService">
+        <port name="EmployeePort" binding="tns:EmployeeBinding">
+            <soap:address location="http://localhost:8080/ws/employees"/>
+        </port>
+    </service>
+</definitions>
